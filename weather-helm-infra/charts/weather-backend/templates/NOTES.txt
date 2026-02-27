@@ -1,0 +1,12 @@
+Weather Backend deployed successfully!
+
+  Release : {{ .Release.Name }}
+  Namespace: {{ .Release.Namespace }}
+
+The backend is reachable within the cluster at:
+  http://{{ include "weather-backend.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}
+
+IMPORTANT — ensure the API key secret exists before pods start:
+  kubectl create secret generic {{ .Values.existingSecret }} \
+    --from-literal=OPENWEATHER_API_KEY=<your-key> \
+    -n {{ .Release.Namespace }}

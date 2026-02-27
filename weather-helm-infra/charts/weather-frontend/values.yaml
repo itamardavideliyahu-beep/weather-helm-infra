@@ -1,0 +1,61 @@
+replicaCount: 1
+
+image:
+  repository: itamarzadik/weather-frontend
+  tag: ""
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  name: ""
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30080
+
+# In-cluster URL of the backend service — consumed as a ConfigMap env var.
+backendUrl: "http://weather-backend:5000"
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 150m
+    memory: 128Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 10
+  periodSeconds: 20
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 3
+
+# nginx requires root to bind port 80; drop all other capabilities
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+    add:
+      - NET_BIND_SERVICE

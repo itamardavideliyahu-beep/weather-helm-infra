@@ -1,0 +1,61 @@
+replicaCount: 1
+
+image:
+  repository: itamarzadik/weather-backend
+  tag: ""
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  name: ""
+
+service:
+  type: ClusterIP
+  port: 5000
+  targetPort: 5000
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 5000
+  initialDelaySeconds: 15
+  periodSeconds: 20
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: 5000
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 3
+
+# Name of a pre-existing Kubernetes Secret containing OPENWEATHER_API_KEY.
+# Create it manually: kubectl create secret generic weather-backend-secret \
+#   --from-literal=OPENWEATHER_API_KEY=<key> -n weather
+existingSecret: weather-backend-secret
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL

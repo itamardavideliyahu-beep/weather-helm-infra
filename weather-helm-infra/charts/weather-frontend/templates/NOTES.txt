@@ -1,0 +1,11 @@
+Weather Frontend deployed successfully!
+
+  Release : {{ .Release.Name }}
+  Namespace: {{ .Release.Namespace }}
+
+Access the app in Minikube:
+  minikube service {{ include "weather-frontend.fullname" . }} -n {{ .Release.Namespace }}
+
+Or via NodePort directly:
+  export NODE_IP=$(minikube ip)
+  open http://$NODE_IP:{{ .Values.service.nodePort }}
