@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://github.com/itamardavideliyahu-beep/weather-helm-infra
     targetRevision: main
-    path: charts/weather-backend
+    path: weather-helm-infra/charts/weather-backend
   destination:
     server: https://kubernetes.default.svc
     namespace: weather
