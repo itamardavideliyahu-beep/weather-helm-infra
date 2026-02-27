@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/itamarzadik/weather-helm-infra
+    repoURL: https://github.com/itamardavideliyahu-beep/weather-helm-infra
     targetRevision: main
     path: argocd
   destination:
