@@ -49,10 +49,7 @@ spec:
             failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.securityContext }}
           securityContext:
-            allowPrivilegeEscalation: {{ .Values.securityContext.allowPrivilegeEscalation }}
-            capabilities:
-              drop:
-                {{- toYaml .Values.securityContext.capabilities.drop | nindent 16 }}
-              add:
-                {{- toYaml .Values.securityContext.capabilities.add | nindent 16 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
