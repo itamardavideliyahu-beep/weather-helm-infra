@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: itamarzadik/weather-backend
-  tag: "76810d56c525acd03205642b03f3a192db6189c8"
+  tag: "bae6f8759520b4316b3c9d180b9fd43f1391db8e"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
