@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: itamarzadik/weather-frontend
-  tag: "prod-eb645b0"
+  tag: "prod-d34feba"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
